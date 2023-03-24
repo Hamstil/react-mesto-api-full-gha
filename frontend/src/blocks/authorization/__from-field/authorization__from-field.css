@@ -1,0 +1,15 @@
+.authorization__from-field{
+    display: flex;
+    flex-direction: column;
+}
+
+.authorization__from-field:last-of-type{
+   margin-bottom: 186px;
+}
+
+@media screen and (max-width: 570px) {
+    .authorization__from-field:last-of-type {
+        margin-bottom: 143px;
+    }
+  }
+  

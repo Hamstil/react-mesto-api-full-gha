@@ -1,0 +1,10 @@
+.header__block-user {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+  .header__block-user {
+    display: none;
+  }
+}

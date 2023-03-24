@@ -1,0 +1,15 @@
+.profile__image {
+  align-items: center;
+  background: url('../../../images/edit-botton.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20%;
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__image {
+    margin-bottom: 26px;
+  }
+}

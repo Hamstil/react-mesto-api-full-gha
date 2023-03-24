@@ -1,0 +1,14 @@
+.header-menu {
+  display: none;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0 40px 0;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+}
+
+@media screen and (max-width: 768px) {
+  .header-menu {
+    display: flex;
+  }
+}
