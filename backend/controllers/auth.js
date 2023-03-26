@@ -46,8 +46,8 @@ exports.login = async (req, res, next) => {
     } else {
       const matched = await bcrypt.compare(password, user.password);
       if (matched) {
-        const jwt = jsonwebtoken.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
-        res.status(HTTP_STATUS_OK).send({ user, jwt });
+        const token = jsonwebtoken.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+        res.status(HTTP_STATUS_OK).send({ token });
       } else {
         next(new AuthError('Неверая почти или пароль'));
       }

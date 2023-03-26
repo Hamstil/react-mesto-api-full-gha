@@ -7,7 +7,7 @@ const CurrentError = require('../errors/CurrentError');
 // Возвращаем все карточки
 exports.getCards = async (req, res, next) => {
   try {
-    const cards = await cardSchema.find({}).populate(['owner', 'likes']);
+    const cards = await cardSchema.find({});
     if (cards) {
       res.status(HTTP_STATUS_OK).send(cards);
     }
@@ -21,7 +21,7 @@ exports.createCard = async (req, res, next) => {
   try {
     const { name, link } = req.body;
     const owner = req.user._id;
-    const card = await cardSchema.create({ name, link, owner });
+    const card = await (await cardSchema.create({ name, link, owner }));
     res.status(HTTP_STATUS_OK).send(card);
   } catch (err) {
     if (err.name === 'ValidationError') {
@@ -64,7 +64,7 @@ exports.getLike = async (req, res, next) => {
       { new: true },
     );
     if (card) {
-      res.status(HTTP_STATUS_OK).send({ data: card });
+      res.status(HTTP_STATUS_OK).send(card);
     } else {
       next(new NotFound('Карточка не найдена'));
     }
@@ -86,7 +86,7 @@ exports.deleteLike = async (req, res, next) => {
       { new: true },
     );
     if (card) {
-      res.status(HTTP_STATUS_OK).send({ data: card });
+      res.status(HTTP_STATUS_OK).send(card);
     } else {
       next(new NotFound('Карточка не найдена'));
     }

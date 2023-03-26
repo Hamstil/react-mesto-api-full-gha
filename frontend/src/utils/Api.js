@@ -7,8 +7,7 @@ class Api {
   }
 
   constructor(config) {
-    this._url = config.url;
-    this._headers = config.headers;
+    this._url = config.url;    
   }
 
   // получение всей информации пользователя и карточки
@@ -17,26 +16,38 @@ class Api {
   }
 
   // Получение с сервера данных о пользователе
-  getUserInfo() {
+  getUserInfo() {    
+    const token = localStorage.getItem('token');
     return fetch(`${this._url}/users/me`, {
       method: "GET",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "application/json",
+      },
     }).then(this.#onResponce);
   }
 
   // Получение первоночальных карточек
   getInitialCards() {
+    const token = localStorage.getItem('token');
     return fetch(`${this._url}/cards`, {
       method: "GET",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+      },
     }).then(this.#onResponce);
   }
 
   // Изменение информации профиля
   editProfile(data) {
+    const token = localStorage.getItem('token');
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+      },
       body: JSON.stringify({
         name: data.name,
         about: data.about,
@@ -46,9 +57,13 @@ class Api {
 
   // Создание новой карточки
   addNewCard(data) {
+    const token = localStorage.getItem('token');
     return fetch(`${this._url}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+      },
       body: JSON.stringify({
         name: data.name,
         link: data.link,
@@ -58,17 +73,25 @@ class Api {
 
   // Удаление карточки
   deleteCard(cardId) {
+    const token = localStorage.getItem('token');
     return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+      },
     }).then(this.#onResponce);
   }
 
   // Смена аватара
   editAvatar(data) {
+    const token = localStorage.getItem('token');
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+      },
       body: JSON.stringify({
         avatar: data.avatar,
       }),
@@ -77,35 +100,46 @@ class Api {
 
   // Постановка лайка
   addLike(cardId) {
+    const token = localStorage.getItem('token');
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "PUT",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+      },
     }).then(this.#onResponce);
   }
 
   // Снятие лайка
   removeLike(cardId) {
+    const token = localStorage.getItem('token');
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+      },
     }).then(this.#onResponce);
   }
 
   // Общий метод для постановки и снятия лайка
   changeLikeCardStatus(cardId, isLiked) {
+    const token = localStorage.getItem('token');
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: isLiked ? "PUT" : "DELETE",
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+      },
     }).then(this.#onResponce);
   }
 }
 
-const configApi = {
-  url: "https://mesto.nomoreparties.co/v1/cohort-51",
-  headers: {
-    authorization: "1b483a2a-ec99-4b2e-b31a-7f2b36b71675",
-    "content-type": "application/json",
-  },
+
+
+const configApi = {  
+  url: "http://localhost:3000",
+  // url: "https://mesto.nomoreparties.co/v1/cohort-51", 
 };
 
 const api = new Api(configApi);

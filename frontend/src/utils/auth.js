@@ -1,4 +1,6 @@
-export const BASE_URL = "https://auth.nomoreparties.co";
+export const BASE_URL = "http://localhost:3000";
+
+// https://auth.nomoreparties.co
 
 // Функция проверки ответа
 function checkResponse(res) {
@@ -33,12 +35,12 @@ function login(password, email) {
 }
 
 // Проверка валидности токена и получение email
-function getEmail(jwt) {
+function getEmail(token) {  
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${jwt}`,
+      Authorization: `Bearer ${token}`,
     },
   }).then(checkResponse);
 }
