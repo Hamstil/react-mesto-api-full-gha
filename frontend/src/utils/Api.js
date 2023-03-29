@@ -138,7 +138,7 @@ class Api {
 
 
 const configApi = {  
-  url: "http://localhost:3000",
+  url: "https://api.mesto.student51.nomoredomains.work",
   // url: "https://mesto.nomoreparties.co/v1/cohort-51", 
 };
 

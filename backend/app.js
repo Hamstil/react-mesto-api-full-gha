@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
 const helmet = require('helmet');
@@ -17,6 +18,11 @@ app.use(helmet());
 app.use(cors());
 
 app.use(requestLogger);
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 app.use(routes);
 app.use(errorLogger);
 app.use(errors());

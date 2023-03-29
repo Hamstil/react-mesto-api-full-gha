@@ -6,6 +6,8 @@ const BadRequest = require('../errors/BadRequest'); // 400
 const ConflictError = require('../errors/ConflictError'); // 409
 const AuthError = require('../errors/AuthError'); // 401
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 // Регистрация пользователя
 exports.createUser = async (req, res, next) => {
   const {
@@ -46,7 +48,7 @@ exports.login = async (req, res, next) => {
     } else {
       const matched = await bcrypt.compare(password, user.password);
       if (matched) {
-        const token = jsonwebtoken.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+        const token = jsonwebtoken.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
         res.status(HTTP_STATUS_OK).send({ token });
       } else {
         next(new AuthError('Неверая почти или пароль'));
