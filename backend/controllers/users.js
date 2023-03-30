@@ -41,9 +41,7 @@ exports.getCurrentUser = async (req, res, next) => {
       next(new NotFound('Нет пользователя'));
     }
   } catch (err) {
-    if (err.name === 'CastError') {
-      next(new BadRequest('Переданы некорректные данные'));
-    } else next(err);
+    next(err);
   }
 };
 

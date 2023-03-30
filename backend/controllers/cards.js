@@ -9,7 +9,7 @@ exports.getCards = async (req, res, next) => {
   try {
     const cards = await cardSchema.find({});
     if (cards) {
-      res.status(HTTP_STATUS_OK).send(cards);
+      res.send(cards);
     }
   } catch (err) {
     next(err);
