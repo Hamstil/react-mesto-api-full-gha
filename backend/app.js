@@ -8,7 +8,7 @@ const { errors } = require('celebrate');
 
 const { routes } = require('./routes');
 const setErrors = require('./middlewares/setErrors');
-const { requestLogger, errorLogger } = require('./middlewares/Logger');
+// const { requestLogger, errorLogger } = require('./middlewares/Logger');
 
 const app = express();
 
@@ -25,15 +25,10 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 
-app.use(requestLogger);
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-app.use(routes);
+// app.use(requestLogger);
 app.use(limiter);
-app.use(errorLogger);
+app.use(routes);
+// app.use(errorLogger);
 app.use(errors());
 app.use(setErrors);
 
